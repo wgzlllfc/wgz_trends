@@ -1,0 +1,14 @@
+{
+	"result": 0,
+	"keywords": [{
+		"word": "abc",
+		"region": "global",
+		"duration": "4",
+		"interval": "1"
+	}, {
+		"word": "def",
+		"region": "global",
+		"duration": "8",
+		"interval": "10"
+	}]
+}
