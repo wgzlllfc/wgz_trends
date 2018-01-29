@@ -12,27 +12,43 @@ function addstep(selectedstep)
 }
 
 function addRowToTable(){
-    appendOneRow(table.rows);
+    var queryTabel = document.getElementById("key_table");
+    appendOneRowInKeywordPage(queryTabel.rows);
 }
 
-function deleteRow() {
-
+function deleteRow(event) {
+    var target = event.target || event.srcElement;
+    var currentRow = target.parentNode.parentNode;
+    currentRow.parentNode.removeChild(currentRow);
 }
 
-function getKeywordsToRefreshTable() {
+function getKeywordsToRefreshTableInKeywordPage() {
     keywords = ["test", "test"];
     // var callback = function (result) {
     //     var keywords = result["keywords"];
     //     if (isArray(keywords)) {
             for (var i=0;i<keywords.length;i++) {
-                appendOneRow(i);
+                appendOneRowInKeywordPage(i);
             }
     //     }
     // }
     // httpGetAsync("http://google/trends/getKeywords", callback)
 }
 
-function appendOneRow(i) {
+function getKeywordsToRefreshTableInSearchPage() {
+    keywords = ["test", "test"];
+    // var callback = function (result) {
+    //     var keywords = result["keywords"];
+    //     if (isArray(keywords)) {
+    for (var i=0;i<keywords.length;i++) {
+        appendOneRowInKeywordPage(i);
+    }
+    //     }
+    // }
+    // httpGetAsync("http://google/trends/getKeywords", callback)
+}
+
+function appendOneRowInKeywordPage(i) {
     var keywordInput = document.createElement("input");
     keywordInput.type = "text";
     keywordInput.name = "keyword_input";
@@ -101,6 +117,32 @@ function appendOneRow(i) {
 
     var queryTabel = document.getElementById("key_table");
     queryTabel.appendChild(currentRow);
+}
+
+function saveKeywords() {
+
+    // var queryTabel = document.getElementById("key_table");
+    var keywordInputElements = document.getElementsByName("keyword_input");
+    var regionSelectElements = document.getElementsByName("region_select");
+    var durationSelectElements = document.getElementsByName("duration_select");
+    var intervalSelectElements = document.getElementsByName("interval_select");
+
+    var resultArray=[];
+
+    for (var i=0;i<keywordInputElements.length;i++) {
+        var keywordInput = keywordInputElements[i];
+        var regionSelect = regionSelectElements[i];
+        var durationSelect = durationSelectElements[i];
+        var intervalSelect = intervalSelectElements[i];
+
+        var keyword = keywordInput.value;
+        var region = regionSelect.options[regionSelect.selectedIndex].value;
+        var duration = durationSelect.options[durationSelect.selectedIndex].value;
+        var interval = intervalSelect.options[intervalSelect.selectedIndex].value;
+        resultArray[i] = [keyword, region, duration, interval];
+    }
+    httpPostAsync();
+    
 }
 
 function httpGetAsync(theUrl, callback) {
