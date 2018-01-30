@@ -1,41 +1,8 @@
 /**
  * Created by wgz on 2018/1/28.
  */
-function addstep(selectedstep)
-{
-    if(document.getElementByIdx_x("tr1td").innerHTML=="")
-        document.getElementByIdx_x("tr1td").innerHTML=selectedstep;
-    else if(document.getElementByIdx_x("tr2td").innerHTML=="")
-        document.getElementByIdx_x("tr2td").innerHTML=selectedstep;
-    else
-        document.getElementByIdx_x("tr3td").innerHTML=selectedstep;
-}
-
-function addRowToTable(){
-    var queryTabel = document.getElementById("key_table");
-    appendOneRowInKeywordPage(queryTabel.rows);
-}
-
-function deleteRow(event) {
-    var target = event.target || event.srcElement;
-    var currentRow = target.parentNode.parentNode;
-    currentRow.parentNode.removeChild(currentRow);
-}
 
 function getKeywordsToRefreshTableInKeywordPage() {
-    keywords = ["test", "test"];
-    // var callback = function (result) {
-    //     var keywords = result["keywords"];
-    //     if (isArray(keywords)) {
-            for (var i=0;i<keywords.length;i++) {
-                appendOneRowInKeywordPage(i);
-            }
-    //     }
-    // }
-    // httpGetAsync("http://google/trends/getKeywords", callback)
-}
-
-function getKeywordsToRefreshTableInSearchPage() {
     keywords = ["test", "test"];
     // var callback = function (result) {
     //     var keywords = result["keywords"];
@@ -119,6 +86,66 @@ function appendOneRowInKeywordPage(i) {
     queryTabel.appendChild(currentRow);
 }
 
+function getKeywordsToRefreshTableInSearchPage() {
+    keywords = ["test", "test"];
+    // var callback = function (result) {
+    //     var keywords = result["keywords"];
+    //     if (isArray(keywords)) {
+    for (var i=0;i<keywords.length;i++) {
+        appendOneRowInSearchPage(i);
+    }
+    //     }
+    // }
+    // httpGetAsync("http://google/trends/getKeywords", callback)
+}
+
+function appendOneRowInSearchPage(i) {
+    var keywordCell = document.createElement("td");
+    keywordCell.innerText = "China";
+
+    var regionCell = document.createElement("td");
+    keywordCell.innerText = "China";
+
+    var durationCell = document.createElement("td");
+    durationCell.innerText = "China";
+
+    var intervalCell = document.createElement("td");
+    intervalCell.innerText = "China";
+
+    var operation_btn = document.createElement("input");
+    operation_btn.name = "operation_btn";
+    operation_btn.type = "button";
+    operation_btn.value = "展开";
+    // operation_btn.onclick = ;
+
+    var operation_btn_div = document.createElement("div");
+    operation_btn_div.className = "btn_box floatR";
+    operation_btn_div.appendChild(operation_btn);
+
+    var currentRow = document.createElement("tr");
+    currentRow.appendChild(keywordCell);
+    currentRow.appendChild(regionCell);
+    currentRow.appendChild(durationCell);
+    currentRow.appendChild(intervalCell);
+    currentRow.appendChild(operation_btn_div);
+
+    var searchTabel = document.getElementById("search_table");
+    searchTabel.appendChild(currentRow);
+}
+
+function deleteRow(event) {
+    var target = event.target || event.srcElement;
+    var currentRow = target.parentNode.parentNode;
+    currentRow.parentNode.removeChild(currentRow);
+}
+
+function addRowToKeywordTable(){
+    var queryTabel = document.getElementById("key_table");
+    appendOneRowInKeywordPage(queryTabel.rows);
+}
+
+
+
 function saveKeywords() {
 
     // var queryTabel = document.getElementById("key_table");
@@ -148,10 +175,14 @@ function saveKeywords() {
 function httpGetAsync(theUrl, callback) {
     $.ajax({
         url:theUrl,
-        dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
+        type: "GET",
+        dataType: "jsonp",
         success:callback,
-        error:function(){
-            alert("Error");
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            alert("失败！error");
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
         }
     });
 }
@@ -169,4 +200,30 @@ function httpPostAsync(theUrl, data, callback) {
 
 function isArray(object){
     return Object.prototype.toString.call(object)=='[object Array]';
+}
+
+function login() {
+
+    var username_input = document.getElementById("username_input");
+    var password_input = document.getElementById("password_input");
+
+    var username = username_input.value;
+    var password = password_input.value;
+    httpPostAsync()
+    location.replace("index.html");
+}
+
+function checkLogin() {
+    // location.replace("login.html");
+}
+
+function getCurrentTime() {
+    var callback = function (result) {
+        alert("success");
+        console.log(result);
+        var currentTime = result["currentTime"];
+        var timeLabel = document.getElementById("time");
+        timeLabel.value = currentTime;
+    };
+    httpGetAsync("http://47.91.212.95/common/getCurrentTime",callback);
 }

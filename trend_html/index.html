@@ -3,14 +3,19 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Google Trend</title>
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script src="js/side.js" type="text/javascript"></script>
+		<script src="js/trendSelect.js" type="text/javascript"></script>
 	</head>
-	<frameset rows="100,*" cols="*" scrolling="No" framespacing="0"
+	<script type="text/javascript">checkLogin()</script>
+	<frameset rows="50,*" cols="*" scrolling="No" framespacing="0"
 		frameborder="no" border="0">
 		<frame src="head.html" name="headFrame" id="headFrame" title="headFrame">
 
 		<frameset rows="100*" cols="220,*" scrolling="No" framespacing="0" frameborder="no" border="0">
 			<frame src="left.html" name="leftFrame" id="leftFrame" title="mainFrame">
-			<frame src="keyword.html" name="main" scrolling="yes" noresize="noresize" id="rightFrame" title="rightFrame">
+			<frame src="main.html" name="main" scrolling="yes" noresize="noresize" id="rightFrame" title="rightFrame">
 		</frameset>
 	</frameset>
 </html>
+

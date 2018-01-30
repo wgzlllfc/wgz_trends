@@ -139,6 +139,14 @@ address span{ color:#8c9bc1; padding-right:45px;}
 .form_boxD td{ padding:5px 0px; border-top:#e3e3e3 solid 1px;}
 .form_boxD tr.ttl th{border-bottom:#CCC solid 1px;border-top: none !important;}
 
+.form_boxE{padding:0px 20px;}
+.form_boxE table{width:60%;}
+.form_boxE th{border-bottom:#e3e3e3 solid 2px; text-align:center; font-size:14px; padding:10px 0px;}
+.form_boxE td{border-bottom:#e3e3e3 solid 1px;border-right:#e3e3e3 solid 1px;text-align:center; font-size:14px; padding:8px 15px;}
+.form_boxE td.last{border-right: none !important;}
+.form_boxE a{ color:#3085be; text-decoration:none;}
+.form_boxE a:hover{ color:#1e628f; text-decoration:underline;}
+
 
 .selectbox{ padding:3px; background-color:#FFF;-webkit-box-shadow: #e0e0e0 0px 0px 10px;-moz-box-shadow: #e0e0e0 0px 0px 10px;box-shadow: #e0e0e0 0px 0px 10px;}
 .selectbox .sttl{ float:left; font-size:16px; display:block; color:#1fbba6; padding:6px 10px 0px 10px;}

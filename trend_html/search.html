@@ -37,42 +37,22 @@
 
     <!-- Contents -->
     <div id="Contents">
-        <script type="text/javascript">
-            $(function(){
-                $(".select").each(function(){
-                    var s=$(this);
-                    var z=parseInt(s.css("z-index"));
-                    var dt=$(this).children("dt");
-                    var dd=$(this).children("dd");
-                    var _show=function(){dd.slideDown(200);dt.addClass("cur");s.css("z-index",z+1);};
-                    var _hide=function(){dd.slideUp(200);dt.removeClass("cur");s.css("z-index",z);};
-                    dt.click(function(){dd.is(":hidden")?_show():_hide();});
-                    dd.find("a").click(function(){dt.html($(this).html());_hide();});
-                    $("body").click(function(i){ !$(i.target).parents(".select").first().is(s) ? _hide():"";});})})
-        </script>
-
         <!-- MainForm -->
         <div id="MainForm">
             <div class="form_boxB">
-                <table cellpadding="0" cellspacing="0" id="key_table">
-
+                <table cellpadding="0" cellspacing="0" id="search_table">
                     <tr>
                         <th>关键词</th>
                         <th>地区</th>
                         <th>时长</th>
                         <th>间隔</th>
+                        <th>操作</th>
                     </tr>
-                    <script type="text/javascript">getKeywordsToRefreshTableInKeywordPage()</script>
+                    <script type="text/javascript">getKeywordsToRefreshTableInSearchPage()</script>
                 </table>
             </div>
         </div>
         <!-- /MainForm -->
-        <div class="btn_box floatR">
-            <input name="save_btn" type="button" value="保存" onclick="saveKeywords()">
-        </div>
-        <div class="btn_box floatR">
-            <input name="" type="button" value="增加一组条件 " onclick="addRowToTable()">
-        </div>
     </div>
     <!-- /Contents -->
 
