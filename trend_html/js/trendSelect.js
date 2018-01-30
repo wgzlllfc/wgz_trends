@@ -2,8 +2,10 @@
  * Created by wgz on 2018/1/28.
  */
 
+var requestHost = "http://47.91.212.95";
+
 function getKeywordsToRefreshTableInKeywordPage() {
-    keywords = ["test", "test"];
+    var keywords = ["test", "test"];
     // var callback = function (result) {
     //     var keywords = result["keywords"];
     //     if (isArray(keywords)) {
@@ -172,20 +174,7 @@ function saveKeywords() {
     
 }
 
-function httpGetAsync(theUrl, callback) {
-    $.ajax({
-        url:theUrl,
-        type: "GET",
-        dataType: "jsonp",
-        success:callback,
-        error:function(XMLHttpRequest, textStatus, errorThrown){
-            alert("失败！error");
-            alert(XMLHttpRequest.status);
-            alert(XMLHttpRequest.readyState);
-            alert(textStatus);
-        }
-    });
-}
+
 
 function httpPostAsync(theUrl, data, callback) {
     $.ajax({
@@ -193,7 +182,7 @@ function httpPostAsync(theUrl, data, callback) {
         url: theUrl,
         data: data,
         success: callback,
-        dataType: jsonp
+        dataType: "json"
     });
 
 }
@@ -219,11 +208,27 @@ function checkLogin() {
 
 function getCurrentTime() {
     var callback = function (result) {
-        alert("success");
-        console.log(result);
         var currentTime = result["currentTime"];
+        alert(currentTime);
         var timeLabel = document.getElementById("time");
-        timeLabel.value = currentTime;
+        timeLabel.textContent = currentTime;
     };
-    httpGetAsync("http://47.91.212.95/common/getCurrentTime",callback);
+    var theUrl = requestHost+"/common/getCurrentTime";
+    httpGetAsync(theUrl,callback);
+}
+
+function httpGetAsync(theUrl, callback) {
+    $.ajax({
+        url:theUrl,
+        type: "GET",
+        dataType: "json",
+        success:callback,
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            alert("失败！error");
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
+            alert(errorThrown);
+        }
+    });
 }
