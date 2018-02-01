@@ -88,7 +88,6 @@ function addRowToKeywordTable(){
 }
 
 function saveKeywords() {
-    alert("savekeywords")
     var callback = function () {
         location.reload();
     };
@@ -113,12 +112,14 @@ function saveKeywords() {
         resultArray[i] = {
             "word": word_value,
             "region": region_value,
-            "duration": "10",
-            "interval": "10"
+            "duration": duration_value,
+            "interval": interval_value
         };
     }
 
-    var resultJson = JSON.stringify(resultArray);
+    var resultDict = {"keywords":resultArray};
+
+    var resultJson = JSON.stringify(resultDict);
 
     httpPostAsync(requestHost+"/trends/setKeywords", resultJson, callback);
 

@@ -12,10 +12,12 @@
     <link href="css/print.css" rel="stylesheet" type="text/css"  media="print" />
     <script src="js/jquery-1.10.1.min.js"></script>
     <script src="js/side.js" type="text/javascript"></script>
-    <script src="js/trendSelect.js" type="text/javascript"></script>
+    <script src="js/trend/trendCommon.js" type="text/javascript"></script>
+    <script src="js/trend/search.js" type="text/javascript"></script>
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <script type="text/javascript" src="js/embed_loader.js"></script>
     <![endif]-->
 </head>
 
@@ -55,10 +57,10 @@
         <!-- /MainForm -->
     </div>
 
-    <script type="text/javascript" src="js/embed_loader.js"></script>
-    <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"bitcoin","geo":"","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"q=bitcoin&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
-    <!-- /Contents -->
 
+    <script type="text/javascript">trendSearch()</script>
+    <!-- /Contents -->
+e
     <!-- /footer -->
     <footer>
         <address>2018 Corporation,All Rights</address>

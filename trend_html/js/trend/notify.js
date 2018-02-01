@@ -2,17 +2,16 @@
  * Created by wgz on 2018/1/29.
  */
 function getMailInfoToRefreshMailTable() {
-    var mails = ["test", "test"];
-    // var callback = function (result) {
-    //     var keywords = result["keywords"];
-    //     if (isArray(keywords)) {
-    for (var i=0;i<mails.length;i++) {
-        var mail = mails[i];
-        addRowToMailTable(mail);
-    }
-    //     }
-    // }
-    // httpGetAsync("http://google/trends/getKeywords", callback)
+    var callback = function (result) {
+        var mails = result["mails"];
+        if (isArray(mails)) {
+            for (var i=0;i<mails.length;i++) {
+                var mail = mails[i];
+                addRowToMailTable(mail);
+            }
+        }
+    };
+    httpGetAsync(requestHost + "/common/getMails", callback)
 }
 
 function addRowToMailTable(mail) {
@@ -54,21 +53,26 @@ function saveMails() {
         var keyword = keywordInput.value;
         resultArray[i] = [keyword, region, duration, interval];
     }
-    httpPostAsync();
+    var resultJson = JSON.stringify(resultArray);
+    var callback = function (result) {
+        if (result["result"] == "0") {
+            location.reload();
+        }
+    };
+    httpPostAsync(requestHost + "/common/setMails", resultJson, callback);
 }
 
 function getPhoneInfoToRefreshPhoneTable() {
-    var mails = ["test", "test"];
-    // var callback = function (result) {
-    //     var keywords = result["keywords"];
-    //     if (isArray(keywords)) {
-    for (var i=0;i<mails.length;i++) {
-        var mail = mails[i];
-        addRowToPhoneTable(mail);
-    }
-    //     }
-    // }
-    // httpGetAsync("http://google/trends/getKeywords", callback)
+    var callback = function (result) {
+        var mobiles = result["mobiles"];
+        if (isArray(mobiles)) {
+            for (var i=0;i<mobiles.length;i++) {
+                var mobile = mobiles[i];
+                addRowToPhoneTable(mobile);
+            }
+        }
+    };
+    httpGetAsync(requestHost + "/common/getMobiles", callback)
 }
 
 function addRowToPhoneTable() {
@@ -105,5 +109,11 @@ function savePhones() {
         var phoneInput = phoneInputElements[i];
         resultArray[i] = phoneInput.value;
     }
-    httpPostAsync();
+    var resultJson = JSON.stringify(resultArray);
+    var callback = function (result) {
+        if (result["result"] == "0") {
+            location.reload();
+        }
+    };
+    httpPostAsync(requestHost + "/common/setMobiles", resultJson, callback);
 }
