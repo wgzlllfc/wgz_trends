@@ -6,10 +6,8 @@ function login() {
     var password = password_input.value;
 
     var callback = function (result) {
-        alert(result);
-        alert(result["result"]);
         if (result["result"] == "0") {
-            user = username;
+            top.user = username;
             location.replace("index.html");
         } else {
             alert("用户名或者密码有误，请重新输入。");
@@ -24,7 +22,7 @@ function login() {
 }
 
 function checkLogin() {
-    if (user == "") {
+    if (!top.user) {
         location.replace("login.html");
         alert("需要先登录");
     }

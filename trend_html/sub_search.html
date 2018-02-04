@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="refresh" content="60">
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="generator" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <link href="css/haiersoft.css" rel="stylesheet" type="text/css" media="screen,print" />
+    <link href="css/print.css" rel="stylesheet" type="text/css"  media="print" />
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="js/side.js" type="text/javascript"></script>
+    <script src="js/trend/trendCommon.js" type="text/javascript"></script>
+    <script src="js/trend/search.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1294_RC01/embed_loader.js"></script>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<!-- wrap_right -->
+<div class="wrap_right">
+    <header>
+        <!-- Header -->
+
+        <!-- /Header -->
+    </header>
+
+
+    <!-- Contents -->
+    <div id="Contents">
+        <!-- MainForm -->
+        <div id="MainForm">
+            <div class="form_boxB">
+                <table cellpadding="0" cellspacing="0" id="sub_search_table">
+                    <tr>
+                        <th>关键词</th>
+                        <th>地区</th>
+                        <th>时长</th>
+                        <th>间隔</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr>
+                        <td id="word"></td>
+                        <td id="region"></td>
+                        <td id="duration"></td>
+                        <td id="interval"></td>
+                        <td>
+                            <div class="btn_box floatR">
+                                <input type="button" name="operation_btn" value="返回" onclick="getback()">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <script type="text/javascript">
+                                trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":top.currentKeyDict["word"],"geo":"","time":"now 4-H"}],"category":0,"property":""}, {"exploreQuery":"date=now%204-H&q="+top.currentKeyDict["word"],"guestPath":"https://trends.google.com:443/trends/embed/"});
+                            </script>
+                        </td>
+                    </tr>
+                </table>
+                <script type="text/javascript">appendSubSearchRow()</script>
+
+            </div>
+        </div>
+        <!-- /MainForm -->
+    </div>
+
+    <!-- /Contents -->
+    <!-- /footer -->
+    <footer>
+        <address>2018 Corporation,All Rights</address>
+    </footer>
+    <!-- /footer -->
+
+</div>
+<!-- /wrap_right -->
+
+<!--<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1294_RC01/embed_loader.js"></script>-->
+<!--<script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"bitcoin","geo":"","time":"now 1-d"}],"category":0,"property":""}, {"exploreQuery":"date=now%201-d&q=bitcoin","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>-->
+</body>
+</html>

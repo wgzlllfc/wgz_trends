@@ -1,3 +1,4 @@
+
 function trendSearch(keyword, geo, time) {
     var explorQuery = "q=" + keyword + "geo=" + geo + "&date=" + time;
     trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":keyword,"geo":geo,"time":time}],"category":0,"property":""}, {"exploreQuery":explorQuery,"guestPath":"https://trends.google.com:443/trends/embed/"});
@@ -14,10 +15,10 @@ function getThresholds(dict) {
 
 function getKeywordsToRefreshTableInSearchPage() {
     var callback = function (result) {
-        var keywords = result["keywords"];
-        if (isArray(keywords)) {
-            for (var i=0;i<keywords.length;i++) {
-                var keyDict = keywords[i];
+        top.keyArr = result["keywords"];
+        if (isArray(top.keyArr)) {
+            for (var i=0;i<top.keyArr.length;i++) {
+                var keyDict = top.keyArr[i];
                 appendOneRowInSearchPage(i, keyDict);
             }
         }
@@ -125,29 +126,50 @@ function operationBtnAction(event) {
     var target = event.target || event.srcElement;
     var arr = target.id.split("_");
     var index = arr[arr.length - 1];
-    var currentThresholdsRow = $("#thresholdsRow_"+index);
-    if (currentThresholdsRow.is(":hidden")) {
-        currentThresholdsRow.show();
-    } else {
-        currentThresholdsRow.hide();
-    }
-    var currentTrendsRow = $("#trendsRow_"+index);
+    top.currentKeyDict = top.keyArr[parseInt(index)];
+    location.replace("sub_search.html");
+    // var currentThresholdsRow = $("#thresholdsRow_"+index);
+    // if (currentThresholdsRow.is(":hidden")) {
+    //     currentThresholdsRow.show();
+    // } else {
+    //     currentThresholdsRow.hide();
+    // }
+    // var currentTrendsRow = $("#trendsRow_"+index);
+    //
+    // if (currentTrendsRow.is(":hidden")) {
+    //
+    //     // var trendsCellId = "trendsCell_" + index;
+    //     // var currentTrendsCell = $("#trendsCell_"+index);
+    //     // alert("another");
+    //     // var trendScript = "trends.embed.renderExploreWidget(\"TIMESERIES\", {\"comparisonItem\":[{\"keyword\":\"qishan\",\"geo\":\"\",\"time\":\"now 4-H\"}],\"category\":0,\"property\":\"\"}, {\"exploreQuery\":\"date=now%204-H&q=qishan\",\"guestPath\":\"https:\/\/trends.google.com:443/trends/embed\/\"});";
+    //     // var trendHtml = "<td id='trendsCell_0'><script type='text/javascript'>"+trendScript+"<\/script><\/td>";
+    //     // currentTrendsCell.html(trendHtml);
+    //     // var oldScript = currentTrendsCell.getElementsByTagName('script')[0];
+    //     // currentTrendsCell.removeChild(oldScript);
+    //     // var scriptText = oldScript.innerHTML;
+    //     // eval(scriptText);
+    //     currentTrendsRow.show();
+    // } else {
+    //     currentTrendsRow.hide();
+    // }
+}
 
-    if (currentTrendsRow.is(":hidden")) {
+function appendSubSearchRow() {
 
-        // var trendsCellId = "trendsCell_" + index;
-        // var currentTrendsCell = $("#trendsCell_"+index);
-        // alert("another");
-        // var trendScript = "trends.embed.renderExploreWidget(\"TIMESERIES\", {\"comparisonItem\":[{\"keyword\":\"qishan\",\"geo\":\"\",\"time\":\"now 4-H\"}],\"category\":0,\"property\":\"\"}, {\"exploreQuery\":\"date=now%204-H&q=qishan\",\"guestPath\":\"https:\/\/trends.google.com:443/trends/embed\/\"});";
-        // var trendHtml = "<td id='trendsCell_0'><script type='text/javascript'>"+trendScript+"<\/script><\/td>";
-        // currentTrendsCell.html(trendHtml);
-        // var oldScript = currentTrendsCell.getElementsByTagName('script')[0];
-        // currentTrendsCell.removeChild(oldScript);
-        // var scriptText = oldScript.innerHTML;
-        // eval(scriptText);
-        currentTrendsRow.show();
-    } else {
-        currentTrendsRow.hide();
-    }
+    var keyDict = top.currentKeyDict;
+    var keywordCell = document.getElementById("word");
+    keywordCell.innerText = keyDict["word"];
 
+    var regionCell = document.getElementById("region");
+    regionCell.innerText = keyDict["region"];
+
+    var durationCell = document.getElementById("duration");
+    durationCell.innerText = keyDict["duration"];
+
+    var intervalCell = document.getElementById("interval");
+    intervalCell.innerText = keyDict["interval"];
+}
+
+function getback() {
+    location.replace("search.html");
 }
