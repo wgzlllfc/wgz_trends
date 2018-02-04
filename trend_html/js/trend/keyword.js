@@ -3,19 +3,78 @@ function getKeywordsToRefreshTableInKeywordPage() {
         var keywords = result["keywords"];
         if (isArray(keywords)) {
             for (var i=0;i<keywords.length;i++) {
-                appendOneRowInKeywordPage(i, keywords[i]);
+                appendOneFixedRowInKeywordPage(i, keywords[i]);
             }
+            top.keyArr = keywords;
         }
     };
     httpGetAsync(requestHost + "/trends/getKeywords", callback)
 }
 
+function appendOneFixedRowInKeywordPage(i, keyDict) {
+    var keyword = keyDict["word"];
+    var region = keyDict["region"];
+    var duration = keyDict["duration"];
+    var interval = keyDict["interval"];
+
+    // var keywordInput = document.createElement("input");
+    // keywordInput.type = "text";
+    // keywordInput.name = "keyword_input";
+    // keywordInput.value = keyword;
+    var keywordCell = document.createElement("td");
+    keywordCell.className = "keyword_input";
+    keywordCell.innerText = keyword;
+
+    // var regionInput = document.createElement("input");
+    // regionInput.type = "text";
+    // regionInput.name = "region_select";
+    // regionInput.value = region;
+    var regionCell = document.createElement("td");
+    regionCell.className = "region_select";
+    regionCell.innerText = region;
+
+    // var durationInput = document.createElement("input");
+    // durationInput.type = "text";
+    // durationInput.name = "duration_select";
+    // durationInput.value = duration;
+    var durationCell = document.createElement("td");
+    durationCell.className = "duration_select";
+    durationCell.innerText = duration;
+
+    // var intervalInput = document.createElement("input");
+    // intervalInput.type = "text";
+    // intervalInput.name = "duration_select";
+    // intervalInput.value = interval;
+    var intervalCell = document.createElement("td");
+    intervalCell.className = "interval_select";
+    intervalCell.innerText = interval;
+
+    var del_btn = document.createElement("input");
+    del_btn.name = "del_btn";
+    del_btn.type = "button";
+    del_btn.value = "删除";
+    del_btn.onclick = deleteRow;
+
+    var del_btn_div = document.createElement("div");
+    del_btn_div.className = "btn_box floatR";
+    del_btn_div.appendChild(del_btn);
+
+    var currentRow = document.createElement("tr");
+    currentRow.appendChild(keywordCell);
+    currentRow.appendChild(regionCell);
+    currentRow.appendChild(durationCell);
+    currentRow.appendChild(intervalCell);
+    currentRow.appendChild(del_btn_div);
+
+    var queryTable = document.getElementById("key_table");
+    queryTable.appendChild(currentRow);
+}
 
 function appendOneRowInKeywordPage(i, keyDict) {
     var keywordValue = keyDict["word"];
-    var region = keyDict["regin"];
+    var region = keyDict["region"];
     var duration = keyDict["duration"];
-    var interval = keyDict[interval];
+    var interval = keyDict["interval"];
 
     var keywordInput = document.createElement("input");
     keywordInput.type = "text";
@@ -25,25 +84,18 @@ function appendOneRowInKeywordPage(i, keyDict) {
     keywordCell.append(keywordInput);
 
     var regionOption1 = document.createElement("option");
-    regionOption1.value = "global";
-    regionOption1.text = "全球";
-    // var regionOption2 = document.createElement("option");
-    // regionOption2.value = "US";
-    // regionOption2.text = "美国";
+    regionOption1.value = region;
+    regionOption1.text = region;
     var regionSelect = document.createElement("select");
     regionSelect.style = "width:90px";
     regionSelect.name = "region_select";
     regionSelect.appendChild(regionOption1);
-    // regionSelect.appendChild(regionOption2);
     var regionCell = document.createElement("td");
     regionCell.appendChild(regionSelect);
 
     var durationOption1 = document.createElement("option");
-    durationOption1.value = "4 hours";
-    durationOption1.text = "4小时";
-    // var durationOption2 = document.createElement("option");
-    // durationOption2.value = "US";
-    // durationOption2.text = "美国";
+    durationOption1.value = duration;
+    durationOption1.text = duration;
     var durationSelect = document.createElement("select");
     durationSelect.style = "width:90px";
     durationSelect.name = "duration_select";
@@ -53,16 +105,12 @@ function appendOneRowInKeywordPage(i, keyDict) {
     durationCell.appendChild(durationSelect);
 
     var intervalOption1 = document.createElement("option");
-    intervalOption1.value = "1 minute";
-    intervalOption1.text = "1分钟";
-    // var intervalOption2 = document.createElement("option");
-    // intervalOption2.value = "US";
-    // intervalOption2.text = "美国";
+    intervalOption1.value = interval;
+    intervalOption1.text = interval;
     var intervalSelect = document.createElement("select");
     intervalSelect.style = "width:90px";
     intervalSelect.name = "interval_select";
     intervalSelect.appendChild(intervalOption1);
-    // intervalSelect.appendChild(intervalOption2);
     var intervalCell = document.createElement("td");
     intervalCell.id = "row"+(i+1);
     intervalCell.appendChild(intervalSelect);
@@ -84,27 +132,51 @@ function appendOneRowInKeywordPage(i, keyDict) {
     currentRow.appendChild(intervalCell);
     currentRow.appendChild(del_btn_div);
 
-    var queryTabel = document.getElementById("key_table");
-    queryTabel.appendChild(currentRow);
+    var queryTable = document.getElementById("key_table");
+    queryTable.appendChild(currentRow);
 }
 
 function addRowToKeywordTable(){
     var keyDict = {"word":"", "region":"global", "duration":"4 hours", "interval": "1 minute"};
-    var queryTabel = document.getElementById("key_table");
-    appendOneRowInKeywordPage(queryTabel.rows, keyDict);
+    var queryTable = document.getElementById("key_table");
+    appendOneRowInKeywordPage(queryTable.rows, keyDict);
 }
 
 function saveKeywords() {
     var callback = function () {
         location.reload();
     };
+    var resultArray = [];
+
+    var keywordInputRows = document.getElementsByClassName("keyword_input");
+    var regionSelecRows = document.getElementsByClassName("region_select");
+    var durationSelectRows = document.getElementsByClassName("duration_select");
+    var intervalSelectRows = document.getElementsByClassName("interval_select");
+
+
+    for (var j=0;j<keywordInputRows.length;j++) {
+        var keywordInputRow = keywordInputRows[j];
+        var regionSelectRow = regionSelecRows[j];
+        var durationSelectRow = durationSelectRows[j];
+        var intervalSelectRow = intervalSelectRows[j];
+
+        var wordValue = keywordInputRow.innerText;
+        var regionValue = regionSelectRow.innerText;
+        var durationValue = durationSelectRow.innerText;
+        var intervalValue = intervalSelectRow.innerText;
+        resultArray.push({
+            "word": wordValue,
+            "region": regionValue,
+            "duration": durationValue,
+            "interval": intervalValue
+        });
+    }
 
     var keywordInputElements = document.getElementsByName("keyword_input");
     var regionSelectElements = document.getElementsByName("region_select");
     var durationSelectElements = document.getElementsByName("duration_select");
     var intervalSelectElements = document.getElementsByName("interval_select");
 
-    var resultArray=[];
 
     for (var i=0;i<keywordInputElements.length;i++) {
         var keywordInput = keywordInputElements[i];
@@ -116,14 +188,14 @@ function saveKeywords() {
         var region_value = regionSelect.options[regionSelect.selectedIndex].value;
         var duration_value = durationSelect.options[durationSelect.selectedIndex].value;
         var interval_value = intervalSelect.options[intervalSelect.selectedIndex].value;
-        resultArray[i] = {
+        resultArray.push({
             "word": word_value,
             "region": region_value,
             "duration": duration_value,
             "interval": interval_value
-        };
+        });
     }
-
+    
     var resultDict = {"keywords":resultArray};
 
     var resultJson = JSON.stringify(resultDict);
@@ -131,3 +203,15 @@ function saveKeywords() {
     httpPostAsync(requestHost+"/trends/setKeywords", resultJson, callback);
 
 }
+
+function getKeywordsToSave() {
+    var callback = function (result) {
+        var keywords = result["keywords"];
+
+        if (isArray(keywords)) {
+            top.keyArr = keywords;
+        }
+    };
+    httpGetAsync(requestHost + "/trends/getKeywords", callback)
+}
+

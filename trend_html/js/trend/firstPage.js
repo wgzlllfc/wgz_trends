@@ -10,8 +10,20 @@ function getCurrentTime() {
 
 function getConnectionStatus() {
     var callback = function (result) {
-        
+        var status = result["result"];
+        var statusLabel = document.getElementById("status");
+        if (parseInt(status) == 0) {
+            statusLabel.textContent = "成功";
+        } else {
+            statusLabel.textContent = "失败";
+        }
+
     };
     var theUrl = requestHost+"/trends/getConnectionStatus";
     httpGetAsync(theUrl,callback);
+}
+
+function refreshFirstPage() {
+    getCurrentTime();
+    getConnectionStatus();
 }
