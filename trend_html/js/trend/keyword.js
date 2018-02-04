@@ -3,7 +3,7 @@ function getKeywordsToRefreshTableInKeywordPage() {
         var keywords = result["keywords"];
         if (isArray(keywords)) {
             for (var i=0;i<keywords.length;i++) {
-                appendOneRowInKeywordPage(i);
+                appendOneRowInKeywordPage(i, keywords[i]);
             }
         }
     };
@@ -11,52 +11,58 @@ function getKeywordsToRefreshTableInKeywordPage() {
 }
 
 
-function appendOneRowInKeywordPage(i) {
+function appendOneRowInKeywordPage(i, keyDict) {
+    var keywordValue = keyDict["word"];
+    var region = keyDict["regin"];
+    var duration = keyDict["duration"];
+    var interval = keyDict[interval];
+
     var keywordInput = document.createElement("input");
     keywordInput.type = "text";
     keywordInput.name = "keyword_input";
+    keywordInput.value = keywordValue;
     var keywordCell = document.createElement("td");
     keywordCell.append(keywordInput);
 
     var regionOption1 = document.createElement("option");
-    regionOption1.value = "China";
-    regionOption1.text = "中国";
-    var regionOption2 = document.createElement("option");
-    regionOption2.value = "US";
-    regionOption2.text = "美国";
+    regionOption1.value = "global";
+    regionOption1.text = "全球";
+    // var regionOption2 = document.createElement("option");
+    // regionOption2.value = "US";
+    // regionOption2.text = "美国";
     var regionSelect = document.createElement("select");
     regionSelect.style = "width:90px";
     regionSelect.name = "region_select";
     regionSelect.appendChild(regionOption1);
-    regionSelect.appendChild(regionOption2);
+    // regionSelect.appendChild(regionOption2);
     var regionCell = document.createElement("td");
     regionCell.appendChild(regionSelect);
 
     var durationOption1 = document.createElement("option");
-    durationOption1.value = "China";
-    durationOption1.text = "中国";
-    var durationOption2 = document.createElement("option");
-    durationOption2.value = "US";
-    durationOption2.text = "美国";
+    durationOption1.value = "4 hours";
+    durationOption1.text = "4小时";
+    // var durationOption2 = document.createElement("option");
+    // durationOption2.value = "US";
+    // durationOption2.text = "美国";
     var durationSelect = document.createElement("select");
     durationSelect.style = "width:90px";
     durationSelect.name = "duration_select";
     durationSelect.appendChild(durationOption1);
-    durationSelect.appendChild(durationOption2);
+    // durationSelect.appendChild(durationOption2);
     var durationCell = document.createElement("td");
     durationCell.appendChild(durationSelect);
 
     var intervalOption1 = document.createElement("option");
-    intervalOption1.value = "China";
-    intervalOption1.text = "中国";
-    var intervalOption2 = document.createElement("option");
-    intervalOption2.value = "US";
-    intervalOption2.text = "美国";
+    intervalOption1.value = "1 minute";
+    intervalOption1.text = "1分钟";
+    // var intervalOption2 = document.createElement("option");
+    // intervalOption2.value = "US";
+    // intervalOption2.text = "美国";
     var intervalSelect = document.createElement("select");
     intervalSelect.style = "width:90px";
     intervalSelect.name = "interval_select";
     intervalSelect.appendChild(intervalOption1);
-    intervalSelect.appendChild(intervalOption2);
+    // intervalSelect.appendChild(intervalOption2);
     var intervalCell = document.createElement("td");
     intervalCell.id = "row"+(i+1);
     intervalCell.appendChild(intervalSelect);
@@ -83,8 +89,9 @@ function appendOneRowInKeywordPage(i) {
 }
 
 function addRowToKeywordTable(){
+    var keyDict = {"word":"", "region":"global", "duration":"4 hours", "interval": "1 minute"};
     var queryTabel = document.getElementById("key_table");
-    appendOneRowInKeywordPage(queryTabel.rows);
+    appendOneRowInKeywordPage(queryTabel.rows, keyDict);
 }
 
 function saveKeywords() {

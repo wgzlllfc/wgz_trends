@@ -43,17 +43,15 @@ function addRowToMailTable(mail) {
 }
 
 function saveMails() {
-    var keywordInputElements = document.getElementsByName("mail_input");
+    var mailInputElements = document.getElementsByName("mail_input");
 
     var resultArray=[];
 
-    for (var i=0;i<keywordInputElements.length;i++) {
-        var keywordInput = keywordInputElements[i];
-
-        var keyword = keywordInput.value;
-        resultArray[i] = [keyword, region, duration, interval];
+    for (var i=0;i<mailInputElements.length;i++) {
+        var mailInput = mailInputElements[i];
+        resultArray[i] = mailInput.value;
     }
-    var resultJson = JSON.stringify(resultArray);
+    var resultJson = JSON.stringify({"mails":resultArray});
     var callback = function (result) {
         if (result["result"] == "0") {
             location.reload();
@@ -75,10 +73,13 @@ function getPhoneInfoToRefreshPhoneTable() {
     httpGetAsync(requestHost + "/common/getMobiles", callback)
 }
 
-function addRowToPhoneTable() {
+function addRowToPhoneTable(mobile) {
     var phoneInput = document.createElement("input");
     phoneInput.type = "text";
-    phoneInput.name = "mail_input";
+    phoneInput.name = "phone_input";
+    if (mobile) {
+        phoneInput.value = mobile;
+    }
     var phoneCell = document.createElement("td");
     phoneCell.append(phoneInput);
 
@@ -109,7 +110,7 @@ function savePhones() {
         var phoneInput = phoneInputElements[i];
         resultArray[i] = phoneInput.value;
     }
-    var resultJson = JSON.stringify(resultArray);
+    var resultJson = JSON.stringify({"mobiles":resultArray});
     var callback = function (result) {
         if (result["result"] == "0") {
             location.reload();

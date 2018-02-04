@@ -12,6 +12,6 @@ function getConnectionStatus() {
     var callback = function (result) {
         
     };
-    var theUrl = requestHost+"/common/getCurrentTime";
+    var theUrl = requestHost+"/trends/getConnectionStatus";
     httpGetAsync(theUrl,callback);
 }
