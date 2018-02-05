@@ -39,8 +39,8 @@
     <!-- Contents -->
     <div id="Contents">
         <!-- MainForm -->
-        <div id="MailForm">
-            <div class="form_boxB">
+        <div id="LeftForm">
+            <div class="form_boxQ">
                 <table cellpadding="0" cellspacing="0" id="mail_table">
                     <tr>
                         <th>邮箱地址</th>
@@ -49,18 +49,19 @@
                     <script type="text/javascript">getMailInfoToRefreshMailTable()</script>
                 </table>
             </div>
-            <div class="btn_box floatR">
-                <input name="save_btn" type="button" value="保存" onclick="saveMails()">
-            </div>
-            <div class="btn_box floatR">
+            <!--<div class="btn_box floatL">-->
+
+            <!--</div>-->
+            <div class="btn_box floatL">
                 <input name="" type="button" value="添加邮箱 " onclick="addRowToMailTable()">
+                <input name="save_btn" type="button" value="保存" onclick="saveMails()">
             </div>
         </div>
         <!-- /MainForm -->
 
 
-        <div id="PhoneForm">
-            <div class="form_boxB">
+        <div id="RightForm">
+            <div class="form_boxP">
                 <table cellpadding="0" cellspacing="0" id="phone_table">
                     <tr>
                         <th>手机号</th>
@@ -69,13 +70,14 @@
                     <script type="text/javascript">getPhoneInfoToRefreshPhoneTable()</script>
                 </table>
             </div>
-
-            <div class="btn_box floatR">
+            <!--<div class="btn_box floatR">-->
+                <!--<input name="save_btn" type="button" value="保存" onclick="savePhones()">-->
+            <!--</div>-->
+            <div class="btn_box floatL">
+                <input name="" type="button" value="添加手机 " onclick="addRowToPhoneTable()">
                 <input name="save_btn" type="button" value="保存" onclick="savePhones()">
             </div>
-            <div class="btn_box floatR">
-                <input name="" type="button" value="添加手机 " onclick="addRowToPhoneTable()">
-            </div>
+
         </div>
 
     </div>

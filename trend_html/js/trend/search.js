@@ -185,15 +185,21 @@ function getback() {
 function removeUnusedRow() {
     var currentTable = document.getElementById("sub_search_table");
     var tbody = currentTable.lastChild;
-    if (isArray(top.keyArr)) {
-        for (var i = 10; i>=top.keyArr.length; i--) {
+    if (top.keyArr && isArray(top.keyArr)) {
+        for (var i = 20; i>=top.keyArr.length; i--) {
             var currentKeyRow = document.getElementById("keyRow_"+i);
             var currentThresholdsRow = document.getElementById("thresholdsRow_"+i);
-            var currentTrendsRow = document.getElementById("trendsRow_"+i);
+            // var currentTrendsRow = document.getElementById("trendsRow_"+i);
 
-            tbody.removeChild(currentTrendsRow);
+            // tbody.removeChild(currentTrendsRow);
             tbody.removeChild(currentThresholdsRow);
             tbody.removeChild(currentKeyRow);
+        }
+    } else {
+        var trs = currentTable.getElementsByTagName("tr");
+
+        for(var j = trs.length - 1; j > 0; j--) {
+            currentTable.deleteRow(j);
         }
     }
 
@@ -290,33 +296,14 @@ function reloadTrendsDraw() {
 }
 
 function reloadNewSearchPage() {
-    top.keysNeedToRefresh = [];
-    for (var i = 0; i < top.keyArr.length; i++) {
-        var thresholdsRow = $("#thresholdsRow_"+i);
-        if (!thresholdsRow.is(":hidden")) {
-            top.keysNeedToRefresh.push(i);
-        }
-    }
-    location.reload();
-    // for (var j = 0; j < top.keysNeedToRefresh.length; j++) {
-    //     var index = top.keysNeedToRefresh[j];
-    //     alert(index);
-    //     var currentThresholdsRow = $("#thresholdsRow_"+index);
-    //     alert(currentThresholdsRow);
-    //     if (currentThresholdsRow.is(":hidden")) {
-    //         currentThresholdsRow.show();
-    //     }
-    //
-    //     var currentTrendsRow = $("#trendsRow_"+index);
-    //     if (currentTrendsRow.is(":hidden")) {
-    //         currentTrendsRow.show();
-    //     }
-    //
-    //     var btn = document.getElementById("unCollapse_"+index);
-    //     if (btn.value = "展开") {
-    //         btn.value = "收起";
+    // top.keysNeedToRefresh = [];
+    // for (var i = 0; i < top.keyArr.length; i++) {
+    //     var thresholdsRow = $("#thresholdsRow_"+i);
+    //     if (!thresholdsRow.is(":hidden")) {
+    //         top.keysNeedToRefresh.push(i);
     //     }
     // }
+    location.reload();
 }
 function setIntervalToRefrsh() {
     setInterval(reloadNewSearchPage, 1000 * 60);
@@ -340,13 +327,3 @@ function dispalyStyle() {
         }
     }
 }
-
-function btnValue(i) {
-    if (top.keyArr && top.keyArr.indexOf(i) != -1) {
-        return "收起";
-    } else {
-        return "展开";
-    }
-}
-
-

@@ -4,6 +4,7 @@
 
 var requestHost = "http://47.91.212.95";
 // var requestHost = "http://192.168.0.102:8080";
+// var requestHost = "http://10.222.46.47:8080";
 
 function deleteRow(event) {
     var target = event.target || event.srcElement;
