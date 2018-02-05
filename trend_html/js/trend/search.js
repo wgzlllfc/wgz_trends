@@ -6,7 +6,7 @@ function getKeywordsToRefreshTableInSearchPage() {
                 var keyDict = top.keyArr[i];
                 appendOneRowInSearchPage(i, keyDict);
             }
-            // addTrendsDraw(top.keyArr);
+            getThresholds(top.keyArr);
         }
     };
     httpGetAsync(requestHost + "/trends/getKeywords", callback)
@@ -44,54 +44,42 @@ function appendOneRowInSearchPage(i, keyDict) {
     var intervalCell = document.createElement("td");
     intervalCell.innerText = keyDict["interval"];
 
-    var operation_btn = document.createElement("input");
-    operation_btn.name = "operation_btn";
-    operation_btn.type = "button";
-    operation_btn.value = "展开";
-    operation_btn.id = "operation_" + i;
-    operation_btn.onclick = operationBtnAction;
+    // var operation_btn = document.createElement("input");
+    // operation_btn.name = "operation_btn";
+    // operation_btn.type = "button";
+    // operation_btn.value = "展开";
+    // operation_btn.id = "operation_" + i;
+    // operation_btn.onclick = operationBtnAction;
 
-    var operation_btn_div = document.createElement("div");
-    operation_btn_div.className = "btn_box floatR";
-    operation_btn_div.appendChild(operation_btn);
+    // var operation_btn_div = document.createElement("div");
+    // operation_btn_div.className = "btn_box floatR";
+    // operation_btn_div.appendChild(operation_btn);
 
     var keywordRow = document.createElement("tr");
     keywordRow.appendChild(keywordCell);
     keywordRow.appendChild(regionCell);
     keywordRow.appendChild(durationCell);
     keywordRow.appendChild(intervalCell);
-    keywordRow.appendChild(operation_btn_div);
+    // keywordRow.appendChild(operation_btn_div);
 
     var thresholdsDescCell = document.createElement("td");
     thresholdsDescCell.innerText = "阈值";
 
     var thresholdsCell = document.createElement("td");
-    thresholdsCell.colSpan = "3";
+    thresholdsCell.id = "thresholdsCell_"+i;
+    thresholdsCell.colSpan = "4";
     thresholdsCell.align = "center";
-    thresholdsCell.innerText = "111";
 
     var thresholdsRow = document.createElement("tr");
     thresholdsRow.id = "thresholdsRow_" + i;
-    thresholdsRow.style = "display:none;";
+    // thresholdsRow.style = "display:none;";
     thresholdsRow.appendChild(thresholdsDescCell);
     thresholdsRow.appendChild(thresholdsCell);
 
-    var trendsCell = document.createElement("td");
-    var trendsCellId = "trendsCell_" + i;
-    trendsCell.id = trendsCellId;
-    trendsCell.colSpan = "5";
-    trendsCell.innerHTML = "<div id='trendsDiv'><script type='text/javascript'>trends.embed.renderExploreWidget('TIMESERIES', {'comparisonItem':[{'keyword':'"+keyDict['word']+"','geo':'','time':'now 4-H'}],'category':0,'property':''}, {'exploreQuery':'date=now%204-H&q="+keyDict['word']+"','guestPath':'https:\/\/trends.google.com:443/trends/embed/'});<\/script><\/div>";
-
-    var trendsRow = document.createElement("tr");
-    trendsRow.id = "trendsRow_" + i;
-    trendsRow.style = "display:none;";
-    trendsRow.appendChild(trendsCell);
 
     var search_table = document.getElementById("search_table");
     search_table.appendChild(keywordRow);
     search_table.appendChild(thresholdsRow);
-    search_table.appendChild(trendsRow);
-
 }
 
 function addTrendsDraw(keyarr) {
@@ -172,7 +160,6 @@ function getThresholds(keywordArr) {
                 var thresholdsCell = document.getElementById("thresholdsCell_"+i);
                 thresholdsCell.innerText = ""+threshold;
             }
-
         }
     };
     httpPostAsync(requestHost + "/trends/searchThresholdsByKeywords", queryJson, callback)
@@ -186,7 +173,7 @@ function removeUnusedRow() {
     var currentTable = document.getElementById("sub_search_table");
     var tbody = currentTable.lastChild;
     if (top.keyArr && isArray(top.keyArr)) {
-        for (var i = 20; i>=top.keyArr.length; i--) {
+        for (var i = 30; i>=top.keyArr.length; i--) {
             var currentKeyRow = document.getElementById("keyRow_"+i);
             var currentThresholdsRow = document.getElementById("thresholdsRow_"+i);
             // var currentTrendsRow = document.getElementById("trendsRow_"+i);
