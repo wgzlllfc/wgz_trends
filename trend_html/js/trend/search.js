@@ -1,8 +1,9 @@
 function timeToGetKeywordsToRefreshTableInSearchPage() {
     getKeywordsToRefreshTableInSearchPage();
     if (!top.timerToRefresh) {
-        top.timerToRefresh = setInterval(getKeywordsToRefreshTableInSearchPage, 1000 * 60);
+        top.clearInterval(top.timerToRefresh);
     }
+    top.timerToRefresh = setInterval(getKeywordsToRefreshTableInSearchPage, 1000 * 60);
 }
 
 function getKeywordsToRefreshTableInSearchPage() {
