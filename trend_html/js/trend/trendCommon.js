@@ -49,3 +49,10 @@ function httpPostAsync(theUrl, data, callback) {
         }
     });
 }
+
+function clearTimerToRefreshSearchPage() {
+    if (top.timerToRefresh) {
+        top.clearInterval(top.timerToRefresh);
+        top.timerToRefresh = null;
+    }
+}

@@ -1,8 +1,16 @@
+function timeToGetKeywordsToRefreshTableInSearchPage() {
+    getKeywordsToRefreshTableInSearchPage();
+    if (!top.timerToRefresh) {
+        top.timerToRefresh = setInterval(getKeywordsToRefreshTableInSearchPage, 1000 * 60);
+    }
+}
+
 function getKeywordsToRefreshTableInSearchPage() {
     if (!top.keyArr || (isArray(top.keyArr) && top.keyArr.length == 0)) {
         var callback = function (result) {
             top.keyArr = result["keywords"];
             if (isArray(top.keyArr)) {
+                removeRows();
                 for (var i=0;i<top.keyArr.length;i++) {
                     var keyDict = top.keyArr[i];
                     appendOneRowInSearchPage(i, keyDict);
@@ -12,6 +20,7 @@ function getKeywordsToRefreshTableInSearchPage() {
         };
         httpGetAsync(requestHost + "/trends/getKeywords", callback)
     } else {
+        removeRows();
         for (var i=0;i<top.keyArr.length;i++) {
             var keyDict = top.keyArr[i];
             appendOneRowInSearchPage(i, keyDict);
@@ -88,6 +97,15 @@ function appendOneRowInSearchPage(i, keyDict) {
     var search_table = document.getElementById("search_table");
     search_table.appendChild(keywordRow);
     search_table.appendChild(thresholdsRow);
+}
+
+function removeRows() {
+    var search_table = document.getElementById("search_table");
+    var trs = search_table.getElementsByTagName("tr");
+
+    for(var j = trs.length - 1; j > 0; j--) {
+        search_table.deleteRow(j);
+    }
 }
 
 function addTrendsDraw(keyarr) {
