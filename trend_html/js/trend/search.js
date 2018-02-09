@@ -1,15 +1,23 @@
 function getKeywordsToRefreshTableInSearchPage() {
-    var callback = function (result) {
-        top.keyArr = result["keywords"];
-        if (isArray(top.keyArr)) {
-            for (var i=0;i<top.keyArr.length;i++) {
-                var keyDict = top.keyArr[i];
-                appendOneRowInSearchPage(i, keyDict);
+    if (!top.keyArr || (isArray(top.keyArr) && top.keyArr.length == 0)) {
+        var callback = function (result) {
+            top.keyArr = result["keywords"];
+            if (isArray(top.keyArr)) {
+                for (var i=0;i<top.keyArr.length;i++) {
+                    var keyDict = top.keyArr[i];
+                    appendOneRowInSearchPage(i, keyDict);
+                }
+                getThresholds(top.keyArr);
             }
-            getThresholds(top.keyArr);
+        };
+        httpGetAsync(requestHost + "/trends/getKeywords", callback)
+    } else {
+        for (var i=0;i<top.keyArr.length;i++) {
+            var keyDict = top.keyArr[i];
+            appendOneRowInSearchPage(i, keyDict);
         }
-    };
-    httpGetAsync(requestHost + "/trends/getKeywords", callback)
+        getThresholds(top.keyArr);
+    }
 }
 
 function appendOneRowInSearchPage(i, keyDict) {

@@ -24,7 +24,7 @@ function httpGetAsync(theUrl, callback) {
         cache:false,
         success:callback,
         error:function(XMLHttpRequest, textStatus, errorThrown){
-            alert("失败！error");
+            alert("网络请求失败");
             // alert(XMLHttpRequest.status);
             // alert(XMLHttpRequest.readyState);
             // alert(textStatus);
